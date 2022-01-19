@@ -1,9 +1,11 @@
 import Head from 'next/head'
 import { PostCard, Categories, PostWidget } from '../components';
-export default function Home() {
+import { getPosts } from '../services';
+
+export default function Home({ posts }) {
   const posts = [
-    {title: 'React Testing', excerpt: 'Learn React Testing'},
-    {title: 'React Testing2', excerpt: 'Learn React Testing2'},
+    { title: 'React Testing', excerpt: 'Learn React Testing' },
+    { title: 'React Testing2', excerpt: 'Learn React Testing2' },
   ];
   return (
     <div className="container px-10 mx-auto mb-">
@@ -24,4 +26,12 @@ export default function Home() {
       </div>
     </div>
   )
+}
+
+export async function getStaticProps() {
+  const posts = (await getPosts()) || [];
+
+  return {
+    props: { posts }
+  }
 }
