@@ -3,10 +3,7 @@ import { PostCard, Categories, PostWidget } from '../components';
 import { getPosts } from '../services';
 
 export default function Home({ posts }) {
-  const posts = [
-    { title: 'React Testing', excerpt: 'Learn React Testing' },
-    { title: 'React Testing2', excerpt: 'Learn React Testing2' },
-  ];
+
   return (
     <div className="container px-10 mx-auto mb-">
       <Head>
@@ -15,7 +12,7 @@ export default function Home({ posts }) {
       </Head>
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
         <div className="col-span-1 lg:col-span-8">
-          {posts.map((post, index) => <PostCard post={post} key={post.title} />)}
+          {posts.map((post, index) => <PostCard key={post.title} post={post.node} />)}
         </div>
         <div className="col-span-1 lg:col-span-4">
           <div className="relative lg:sticky top-8">
