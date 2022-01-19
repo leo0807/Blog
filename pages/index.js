@@ -3,7 +3,7 @@ import { PostCard, Categories, PostWidget } from '../components';
 export default function Home() {
   const posts = [
     {title: 'React Testing', excerpt: 'Learn React Testing'},
-    {title: 'React Testing', excerpt: 'Learn React Testing2'},
+    {title: 'React Testing2', excerpt: 'Learn React Testing2'},
   ];
   return (
     <div className="container px-10 mx-auto mb-">
