@@ -6,6 +6,7 @@ export const getPosts = async () => {
     query MyQuery {
       postsConnection {
         edges {
+          cursor
           node {
             author {
               bio
@@ -63,7 +64,7 @@ export const getSimilarPost = async (categories, slug) => {
       posts(
         where: {slug_not: $slug, AND: {categories_some: {slug_in: $categories}}}
         last: 3
-        ){
+      ){
         title
         featuredImage {
           url
@@ -94,31 +95,41 @@ export const getCategories = async () => {
 
 export const getPostDetails = async (slug) => {
   const query = gql`
-    query GetPostDetails ($slug: String!) {
-      post(where: {slug: $slug}){
-            author {
-              bio
-              name
-              id
-              photo {
-                url
-              }
-            }
-            createdAt
-            slug
-            excerpt
-            title
-            featuredImage {
-              url
-            }
-            categories {
-              name
-              slug
-            }
+    query GetPostDetails($slug : String!) {
+      post(where: {slug: $slug}) {
+        title
+        excerpt
+        featuredImage {
+          url
+        }
+        author{
+          name
+          bio
+          photo {
+            url
           }
         }
+        createdAt
+        slug
+        content {
+          raw
+        }
+        categories {
+          name
+          slug
+        }
+      }
+    }
   `;
   const result = await request(graphqlAPI, query, { slug });
 
   return result.post;
+}
+
+export const submiteComment = async (obj) => {
+  const result = await fetch('/api/comments', {
+    method: 'POST',
+    body: JSON.stringify(obj)
+  });
+  return result.json();
 }

@@ -16,7 +16,6 @@ export default function PostWidget({ categories, slug }) {
         .then((result) => setRelatedPosts(result));
     }
   }, [slug]);
-  console.log(relatedPosts);
 
   return (
     <div className="bg-white shadow-lg rounded-lg p-8 mb-8">
