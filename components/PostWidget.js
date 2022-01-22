@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import Link from 'next/link';
-import { getRecentPosts, getSimilarPost } from '../services';
+import { getRecentPosts, getSimilarPosts } from '../services';
 
 export default function PostWidget({ categories, slug }) {
 
@@ -9,7 +9,7 @@ export default function PostWidget({ categories, slug }) {
 
   useEffect(() => {
     if (slug) {
-      getSimilarPost(categories, slug)
+      getSimilarPosts(categories, slug)
         .then((result) => setRelatedPosts(result));
     } else {
       getRecentPosts()
