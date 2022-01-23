@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import parse from 'html-react-parser';
-import { comment } from 'postcss';
 import { getComments } from '../services';
 
 const Comments = ({ slug }) => {
@@ -9,22 +8,22 @@ const Comments = ({ slug }) => {
 
   useEffect(() => {
     getComments(slug).then((result) => {
+      console.log(result);
       setComments(result);
     });
   }, []);
 
   return (
     <>
-      {console.log(comments.length)}
       {comments.length > 0 && (
-        <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8">
-          <h3 className="text-xl mb-8 font-semibold border-b pb-4">
+        <div className="p-8 pb-12 mb-8 bg-white rounded-lg shadow-lg">
+          <h3 className="pb-4 mb-8 text-xl font-semibold border-b">
             {comments.length}
             {' '}
             Comments
           </h3>
           {comments.map((comment, index) => (
-            <div key={index} className="border-b border-gray-100 mb-4 pb-4">
+            <div key={index} className="pb-4 mb-4 border-b border-gray-100">
               <p className="mb-4">
                 <span className="font-semibold">{comment.name}</span>
                 {' '}
@@ -32,7 +31,7 @@ const Comments = ({ slug }) => {
                 {' '}
                 {moment(comment.createdAt).format('MMM DD, YYYY')}
               </p>
-              <p className="whitespace-pre-line text-gray-600 w-full">
+              <p className="w-full text-gray-600 whitespace-pre-line">
                 {parse(comment.comment)}
               </p>
             </div>
